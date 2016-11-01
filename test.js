@@ -4,18 +4,17 @@ module.exports = {
 		online: 'http://baidu.lecai.com'
 	},
 	method : 'GET',
-	withCookie : false,
 	engine   : 'http'
 	interfaces : [
 		{	
-			id   ：'getItem',
+			id   : 'getItem',
 			url  : '/lottery/draw/ajax_get_detail.php'
 			urls : {
 				online : '/lottery/draw/ajax_get_detail.php'
 			}
 		},
 		{	
-			id   ：'getItem1',
+			id   : 'getItem1',
 			url  : '/lottery/draw/ajax_get_detail.php'
 			urls : {
 				online : '/lottery/draw/ajax_get_detail.php'
