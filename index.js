@@ -1,6 +1,7 @@
 const fs = require('fs')
 const util = require('util')
 
+const localUtil = require('./util')
 const Interface = require('./Interface')
 
 const initialState = {
@@ -16,6 +17,9 @@ const initialState = {
 	}
 }
 const interfaceCache = []
+const engines = {
+	http: require('./http-engine/index')
+}
 
 function RequestProxy(profile){
 	if(typeof profile ==='string'){
@@ -34,7 +38,7 @@ RequestProxy.prototype.process = function() {
 RequestProxy.prototype.processInterfaces = function(interfaceConfig, index) {
 	if(!interfaceConfig.id){
 		let error
-		throw new Error('interface need id')
+		throw new Error('interfaces need id')
 	}
 	let interfaceParams = {
 		id     : interfaceConfig.id,
@@ -44,11 +48,15 @@ RequestProxy.prototype.processInterfaces = function(interfaceConfig, index) {
 	}
 
 	if(interfaceConfig.host || interfaceConfig.hosts || interfaceConfig.url || interfaceConfig.urls){
-		interfaceParams.host = util.configureHost(interfaceConfig, initialState, interfaceParams.status)
+		interfaceParams.host = localUtil.configureHost(interfaceConfig, initialState, interfaceParams.status)
 	}
+	interfaceParams[interfaceParams.engine] = Object.assign({}, initialState[interfaceParams.engine+'Default'], interfaceConfig[interfaceParams.engine])
+	let interfaces = new Interface(interfaceParams, engines[interfaceParams.engine])
+	console.log(interfaces.getId())
+	console.log(interfaces.getItem())
 
-	let interface = new Interface(interfaceParams)
-	interfaceCache.push(interface)
+	interfaceCache.push(interfaces)
 }
 
 let inter = new RequestProxy('./test')
+console.log(interfaceCache)
