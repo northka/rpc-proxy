@@ -52,9 +52,7 @@ RequestProxy.prototype.processInterfaces = function(interfaceConfig, index) {
 	}
 	interfaceParams[interfaceParams.engine] = Object.assign({}, initialState[interfaceParams.engine+'Default'], interfaceConfig[interfaceParams.engine])
 	let interfaces = new Interface(interfaceParams, engines[interfaceParams.engine])
-	console.log(interfaces.getId())
-	console.log(interfaces.getItem())
-
+	
 	interfaceCache.push(interfaces)
 }
 
