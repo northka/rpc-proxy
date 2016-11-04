@@ -13,7 +13,8 @@ const initialState = {
 	httpDefault : {
 		method     : 'GET',
 		withCookie : false,
-		cookie     : ''
+		cookie     : '',
+		path       : '/'
 	}
 }
 const interfaceCache = []

@@ -8,7 +8,8 @@ module.exports = {
 	interfaces : [
 		{	
 			id   : 'getItem',
-			url  : '/lottery/draw/ajax_get_detail.php',
+			url  : '10.10.62.103',
+			port : 9299,
 			urls : {
 				online : '/lottery/draw/ajax_get_detail.php'
 			}

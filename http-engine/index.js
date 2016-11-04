@@ -46,7 +46,7 @@ module.exports = {
 			res.on('end', () => {
 				let buf = bufferHelper.toBuffer()
 				let result
-				if(self.option.encoding === 'raw'){
+				if(option.encoding === 'raw'){
 					result = buf
 				}else{
 					if( res.headers['content-type'].indexOf('application/json') >= 0){
