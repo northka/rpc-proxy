@@ -59,3 +59,10 @@ RequestProxy.prototype.processInterfaces = function(interfaceConfig, index) {
 
 let inter = new RequestProxy('./test')
 console.log(interfaceCache)
+interfaceCache[0].request({
+	params: {
+		start_date : '2016-09-17',
+		end_date : '2016-09-17',
+		status : 0
+	}
+}, console.log, console.error)

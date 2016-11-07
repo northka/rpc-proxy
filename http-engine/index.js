@@ -23,8 +23,9 @@ function parseParams ( params){
 }
 module.exports = {
 	request: function(reqObj, successCallback, errorCallback, cookie) {
+
 		let option = {
-			host: getHost(),
+			host: getHost.call(this),
 			port: this.port,
 			path: this.option.path,
 			method: this.option.method,
@@ -38,6 +39,7 @@ module.exports = {
 		}else if(option.method === 'GET'){
 			option.path += '?' + query
 		}
+
 		let req = http.request( option, (res) => {
 			let bufferHelper = new BufferHelper()
 			res.on('data', (chunk) =>{
