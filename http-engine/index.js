@@ -51,15 +51,22 @@ module.exports = {
 			res.on('end', () => {
 				let buf = bufferHelper.toBuffer()
 				let result
-				if(option.encoding === 'raw'){
-					result = buf
-				}else{
-					if( res.headers['content-type'].indexOf('application/json') >= 0){
-						result = JSON.parse(buf.toString())
+				try{
+					if(option.encoding === 'raw'){
+						result = buf
 					}else{
-						result = buf.toString()
+						if( res.headers['content-type'].indexOf('application/json') >= 0){
+							result = JSON.parse(buf.toString())
+						}else{
+							result = buf.toString()
+						}
 					}
+				}catch (e){
+					clearTimeout(timer)
+					errorCallback(e)
+					return
 				}
+				clearTimeout(timer)
 				successCallback(result, res.headers[ 'set-cookie'])
 			})
 		})
