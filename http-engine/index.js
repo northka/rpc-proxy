@@ -42,6 +42,9 @@ module.exports = {
 
 		let req = http.request( option, (res) => {
 			let bufferHelper = new BufferHelper()
+			let timer = setTimeout( function() {
+				errorCallback( 'error' );
+			}, self.timeout );
 			res.on('data', (chunk) =>{
 				bufferHelper.concat( chunk )
 			})
