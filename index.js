@@ -18,7 +18,7 @@ const initialState = {
 		path       : '/'
 	}
 }
-const interfaceCache = []
+const interfaceCache = {}
 const engines = {
 	http: require('./http-engine/index')
 }
@@ -55,12 +55,11 @@ RequestProxy.prototype.processInterfaces = function(interfaceConfig, index) {
 	interfaceParams[interfaceParams.engine] = Object.assign({}, initialState[interfaceParams.engine+'Default'], interfaceConfig[interfaceParams.engine])
 	let interfaces = new Interface(interfaceParams, engines[interfaceParams.engine])
 	
-	interfaceCache.push(interfaces)
+	interfaceCache[interfaces.id] = interfaces
 }
 
 let inter = new RequestProxy('./test')
-console.log(interfaceCache)
-interfaceCache[0].request({
+interfaceCache.getItem.request({
 	params: {
 		start_date : '2016-09-17',
 		end_date : '2016-09-17',
