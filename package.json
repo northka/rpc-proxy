@@ -1,0 +1,23 @@
+{
+  "name": "rpc-proxy",
+  "version": "0.0.1",
+  "description": "rpc层集成框架，将来补充zookeeper和日志统一处理",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/northka/rpc-proxy.git"
+  },
+  "keywords": [
+    "rpc",
+    "soa"
+  ],
+  "author": "northka.chen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/northka/rpc-proxy/issues"
+  },
+  "homepage": "https://github.com/northka/rpc-proxy#readme"
+}
