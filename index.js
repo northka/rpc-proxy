@@ -10,6 +10,7 @@ const initialState = {
 	port        : 80,
 	host        : 'localhost',
 	engine      : 'http',
+	timeout     : 3000,
 	httpDefault : {
 		method     : 'GET',
 		withCookie : false,
@@ -38,14 +39,14 @@ RequestProxy.prototype.process = function() {
 
 RequestProxy.prototype.processInterfaces = function(interfaceConfig, index) {
 	if(!interfaceConfig.id){
-		let error
 		throw new Error('interfaces need id')
 	}
 	let interfaceParams = {
-		id     : interfaceConfig.id,
-		status : interfaceConfig.status || initialState.status,
-		engine : interfaceConfig.engine || initialState.engine,
-		port   : interfaceConfig.port || initialState.port
+		id      : interfaceConfig.id,
+		status  : interfaceConfig.status || initialState.status,
+		engine  : interfaceConfig.engine || initialState.engine,
+		port    : interfaceConfig.port || initialState.port,
+		timeout : interfaceConfig.timeout || initialState.timeout
 	}
 
 	if(interfaceConfig.host || interfaceConfig.hosts || interfaceConfig.url || interfaceConfig.urls){
