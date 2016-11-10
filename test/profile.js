@@ -1,3 +1,6 @@
+/**
+ * Created by northka.chen on 2016/11/10.
+ */
 module.exports = {
 	status: 'online',
 	urls   : {
@@ -6,7 +9,7 @@ module.exports = {
 	method : 'GET',
 	engine   : 'http',
 	interfaces : [
-		{	
+		{
 			id   : 'getItem',
 			url  : '10.10.62.103',
 			port : 9299,
@@ -17,7 +20,7 @@ module.exports = {
 				path : '/admin/v1/activitys-guess/history'
 			}
 		},
-		{	
+		{
 			id   : 'getItem1',
 			url  : '/lottery/draw/ajax_get_detail.php',
 			urls : {
