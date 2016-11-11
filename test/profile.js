@@ -9,6 +9,7 @@ module.exports = {
 	method : 'GET',
 	engine : 'http',
     port   : 9299,
+	timeout: 3000,
 	interfaces : [
 		{
 			id   : 'getItem',

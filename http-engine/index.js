@@ -4,7 +4,7 @@ const http        = require('http')
 const BufferHelper = require('./bufferHelper')
 
 function getRandomInt(min, max) {
-    return (Math.random() * (max - min + 1))>>0 + min;
+    return (Math.random() * (max - min + 1))>>0 + min
 }
 function getHost(){
 	if(Array.isArray(this.host)){
@@ -43,8 +43,8 @@ module.exports = {
 		let req = http.request( option, (res) => {
 			let bufferHelper = new BufferHelper()
 			let timer = setTimeout( function() {
-				errorCallback( 'error' );
-			}, self.timeout );
+				errorCallback( 'error' )
+			}, self.timeout )
 			res.on('data', (chunk) =>{
 				bufferHelper.concat( chunk )
 			})
