@@ -27,7 +27,7 @@ module.exports = {
 		let option = {
 			host: getHost.call(this),
 			port: this.port,
-			path: this.option.path,
+			path: reqObj.path || this.option.path,
 			method: this.option.method,
 			headers: this.option.headers
 		},
