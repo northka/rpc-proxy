@@ -22,14 +22,14 @@ function parseParams ( params){
 	return queryString.stringify( params )
 }
 module.exports = {
-	request: function(reqObj, successCallback, errorCallback, cookie) {
+	request: function(reqObj, successCallback, errorCallback) {
 
 		let option = {
 			host: getHost.call(this),
 			port: this.port,
 			path: reqObj.path || this.option.path,
 			method: this.option.method,
-			headers: this.option.headers
+			headers: Object.assign({}, reqObj.headers, this.option.headers)
 		},
 			self = this
 		let query = parseParams(reqObj.params)
