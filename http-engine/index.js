@@ -23,7 +23,11 @@ function parseParams ( params){
 }
 module.exports = {
 	request: function(reqObj, successCallback, errorCallback) {
-
+		if(this.shouldRequest && typeof this.shouldRequest == 'function' && this.shouldRquest.call(this,reqObj,successCallback,errorCallback)){
+			return  1
+		}
+		this.allRequestBefore && typeof this.allRequestBefore == 'function' && this.allRequestBefore.call(this,reqObj,successCallback,errorCallback)
+		this.requestBefore    && typeof this.requestBefore == 'function' && this.requestBefore.call(this,reqObj,successCallback,errorCallback)
 		let option = {
 			host: getHost.call(this),
 			port: this.port,
@@ -41,6 +45,7 @@ module.exports = {
 		}
 
 		let req = http.request( option, (res) => {
+			self.waitRequest && typeof self.waitRequest == 'function' && self.waitRequest.call(self,reqObj,successCallback,errorCallback)
 			let bufferHelper = new BufferHelper()
 			let timer = setTimeout( function() {
 				errorCallback( 'error' )
@@ -63,10 +68,15 @@ module.exports = {
 					}
 				}catch (e){
 					clearTimeout(timer)
+					self.afterRequest && typeof self.afterRequest == 'function' && self.afterRequest.call(self,buf,e,reqObj,successCallback,errorCallback)
+					self.allRequestAfter && typeof self.allRequestAfter == 'function' && self.allRequestAfter.call(self,buf,e,reqObj,successCallback,errorCallback)
 					errorCallback(e)
 					return
 				}
 				clearTimeout(timer)
+
+				self.afterRequest && typeof self.afterRequest == 'function' && self.afterRequest.call(self,[result, res.headers[ 'set-cookie']],reqObj,successCallback,errorCallback)
+				self.allRequestAfter && typeof self.allRequestAfter == 'function' && self.allRequestAfter.call(self,[result, res.headers[ 'set-cookie']],reqObj,successCallback,errorCallback)
 				successCallback(result, res.headers[ 'set-cookie'])
 			})
 		})
