@@ -3,6 +3,7 @@ const path = require('path')
 const processProfile = require('./lib/processProfile')
 const interfaceCache = require('./lib/interfaceCache')
 const engines        = require('./lib/engines')
+const request        = require('./lib/request')
 
 module.exports ={
 	init         : (fileName) =>{
@@ -18,5 +19,6 @@ module.exports ={
 	getInterface : (id) => {
 		return interfaceCache.getInterface(id)
 	},
-	addEngine    : engines.addEngine
+	addEngine    : engines.addEngine,
+	request      : request
 }
