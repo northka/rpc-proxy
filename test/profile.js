@@ -2,11 +2,10 @@
  * Created by northka.chen on 2016/11/10.
  */
 module.exports = {
-	status: 'online',
 	urls   : {
-		online: '10.10.62.103'
+		online: '10.10.62.103',
+		dev   : '127.0.0.1'
 	},
-	method : 'GET',
 	engine : 'http',
     port   : 9299,
 	timeout: 3000,

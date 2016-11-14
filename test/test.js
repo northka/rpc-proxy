@@ -3,7 +3,7 @@
  */
 
 const rpcProxy = require('../index')
-
+rpcProxy.setStatus('online')
 rpcProxy.init('./test/profile')
 console.log(rpcProxy.getInterface('getItem').request({
 	params: {

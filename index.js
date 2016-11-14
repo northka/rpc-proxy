@@ -20,5 +20,8 @@ module.exports ={
 		return interfaceCache.getInterface(id)
 	},
 	addEngine    : engines.addEngine,
-	request      : request
+	request      : request,
+	setStatus    : (status) => {
+		processProfile({status})
+	}
 }
