@@ -4,6 +4,7 @@ const processProfile = require('./lib/processProfile')
 const interfaceCache = require('./lib/interfaceCache')
 const engines        = require('./lib/engines')
 const request        = require('./lib/request')
+const modifyGlobalFunc     = require('./lib/modifyGlobalFunc')
 
 module.exports ={
 	init         : (fileName) =>{
@@ -23,5 +24,7 @@ module.exports ={
 	request      : request,
 	setStatus    : (status) => {
 		processProfile({status})
-	}
+	},
+	setRequestBefore : modifyGlobalFunc.setRequestBefore,
+	setRequestAfter  : modifyGlobalFunc.setRequestAfter
 }

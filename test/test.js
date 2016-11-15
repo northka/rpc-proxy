@@ -12,3 +12,6 @@ console.log(rpcProxy.getInterface('getItem').request({
 		status : 0
 	}
 }, console.log, console.error))
+rpcProxy.setRequestAfter(function(e,buf){
+	console.log(e,buf)
+})
