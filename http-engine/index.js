@@ -33,7 +33,7 @@ module.exports = {
 			port: this.port,
 			path: reqObj.path || this.option.path,
 			method: this.option.method,
-			headers: Object.assign({}, reqObj.headers, this.option.headers)
+			headers: Object.assign({}, this.option.headers, reqObj.headers)
 		},
 			self = this
 		let query = parseParams(reqObj.params)
@@ -69,7 +69,7 @@ module.exports = {
 				}catch (e){
 					clearTimeout(timer)
 					typeof self.afterRequest == 'function' && self.afterRequest.call(self,e,buf,reqObj,successCallback,errorCallback)
-					self.globalFunc.allRequestAfter.call(self,buf,e,reqObj,successCallback,errorCallback)
+					self.globalFunc.allRequestAfter.call(self,e,buf,reqObj,successCallback,errorCallback)
 					errorCallback(e)
 					return
 				}
@@ -85,5 +85,25 @@ module.exports = {
 			errorCallback(e)
 		})
 		req.end()
+	},
+	parseReqObj: function (reqObj) {
+		if(reqObj.cookie){
+			let cookies = []
+			if(typeof reqObj == 'object'){
+				let cookieName = Object.keys(reqObj.cookie)
+				cookies.push(cookieName + '='+ reqObj.cookie[cookieName])
+				if(reqObj.headers){
+					if(reqObj.headers['cookie']){
+						cookies.push(reqObj.headers['cookie'])
+						reqObj.headers['cookie'] = cookies
+					}else{
+						reqObj.headers['cookie'] = cookies
+					}
+				}else{
+					reqObj.headers = {}
+					reqObj.headers['Cookie'] = cookies
+				}
+			}
+		}
 	}
 }
