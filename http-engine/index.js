@@ -1,5 +1,6 @@
-const queryString = require('querystring')
-const http        = require('http')
+const queryString  = require('querystring')
+const http         = require('http')
+const EventEmitter = require('EventEmitter')
 
 const BufferHelper = require('./bufferHelper')
 
@@ -22,7 +23,7 @@ function parseParams ( params){
 	return queryString.stringify( params )
 }
 module.exports = {
-	request: function(reqObj, successCallback, errorCallback) {
+	request: function(reqObj, successCallback, errorCallback, requestListner) {
 		if(typeof this.shouldRequest == 'function' && this.shouldRquest.call(this,reqObj,successCallback,errorCallback)){
 			return  1
 		}
@@ -43,18 +44,21 @@ module.exports = {
 		}else if(option.method === 'GET'){
 			option.path += '?' + query
 		}
-
+		requestListner && requestListner.emit('requestBegin',option)
 		let req = http.request( option, (res) => {
 			self.waitRequest == 'function' && self.waitRequest.call(self,reqObj,successCallback,errorCallback)
 			let bufferHelper = new BufferHelper()
 			let timer = setTimeout( function() {
 				errorCallback( 'error' )
+				requestListner && requestListner.emit('requestTimeout',option)
 			}, self.timeout )
 			res.on('data', (chunk) =>{
 				bufferHelper.concat( chunk )
 			})
 			res.on('end', () => {
+
 				let buf = bufferHelper.toBuffer()
+				requestListner && requestListner.emit('requestEnd',buf)
 				let result
 				try{
 					if(option.encoding === 'raw'){

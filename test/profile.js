@@ -16,8 +16,11 @@ module.exports = {
 				path : '/admin/v1/activitys-guess/history'
 			}
 		}
+
+
+
 	],
-	files : [
-		'./test/profile'
-	]
+	// files : [
+	// 	'./test/profile'
+	// ]
 }

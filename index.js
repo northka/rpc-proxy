@@ -5,6 +5,7 @@ const interfaceCache = require('./lib/interfaceCache')
 const engines        = require('./lib/engines')
 const request        = require('./lib/request')
 const modifyGlobalFunc     = require('./lib/modifyGlobalFunc')
+const requestListener  = require('./lib/requestListener')
 
 module.exports ={
 	init         : (fileName) =>{
@@ -21,10 +22,11 @@ module.exports ={
 		return interfaceCache.getInterface(id)
 	},
 	addEngine    : engines.addEngine,
-	request      : request,
 	setStatus    : (status) => {
 		processProfile({status})
 	},
 	setRequestBefore : modifyGlobalFunc.setRequestBefore,
-	setRequestAfter  : modifyGlobalFunc.setRequestAfter
+	setRequestAfter  : modifyGlobalFunc.setRequestAfter,
+	requestListener,
+	request,
 }
