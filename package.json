@@ -1,6 +1,6 @@
 {
   "name": "rpc-proxy",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "rpc层集成框架，将来补充zookeeper和日志统一处理",
   "main": "index.js",
   "scripts": {
