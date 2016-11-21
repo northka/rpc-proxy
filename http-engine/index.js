@@ -1,6 +1,6 @@
 const queryString  = require('querystring')
 const http         = require('http')
-const EventEmitter = require('EventEmitter')
+const EventEmitter = require('events')
 
 const BufferHelper = require('./bufferHelper')
 
