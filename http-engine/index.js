@@ -91,11 +91,11 @@ module.exports = {
 		req.end()
 	},
 	parseReqObj: function (reqObj) {
-		if(reqObj.cookie){
+		if(reqObj.cookies){
 			let cookies = []
 			if(typeof reqObj == 'object'){
-				let cookieName = Object.keys(reqObj.cookie)
-				cookies.push(cookieName + '='+ reqObj.cookie[cookieName])
+				let cookieName = Object.keys(reqObj.cookies)
+				cookies.push(cookieName + '='+ reqObj.cookies[cookieName])
 				if(reqObj.headers){
 					if(reqObj.headers['cookie']){
 						cookies.push(reqObj.headers['cookie'])
