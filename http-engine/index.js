@@ -93,20 +93,19 @@ module.exports = {
 	parseReqObj: function (reqObj) {
 		if(reqObj.cookies){
 			let cookies = []
-			if(typeof reqObj == 'object'){
-				let cookieName = Object.keys(reqObj.cookies)
-				cookies.push(cookieName + '='+ reqObj.cookies[cookieName])
-				if(reqObj.headers){
-					if(reqObj.headers['cookie']){
-						cookies.push(reqObj.headers['cookie'])
-						reqObj.headers['cookie'] = cookies
-					}else{
-						reqObj.headers['cookie'] = cookies
-					}
+			let cookieName = Object.keys(reqObj.cookies)
+
+			cookies.push(cookieName + '='+ reqObj.cookies[cookieName])
+			if(reqObj.headers){
+				if(reqObj.headers['cookie']){
+					cookies.push(reqObj.headers['cookie'])
+					reqObj.headers['cookie'] = cookies
 				}else{
-					reqObj.headers = {}
-					reqObj.headers['Cookie'] = cookies
+					reqObj.headers['cookie'] = cookies
 				}
+			}else{
+				reqObj.headers = {}
+				reqObj.headers['Cookie'] = cookies
 			}
 		}
 	}
