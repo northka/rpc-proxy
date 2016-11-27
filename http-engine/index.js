@@ -49,7 +49,7 @@ module.exports = {
 			self.waitRequest == 'function' && self.waitRequest.call(self,reqObj,successCallback,errorCallback)
 			let bufferHelper = new BufferHelper()
 			let timer = setTimeout( function() {
-				errorCallback( 'error' )
+				errorCallback( new Error('timeout') )
 				requestListner && requestListner.emit('requestTimeout',option)
 			}, self.timeout )
 			res.on('data', (chunk) =>{
