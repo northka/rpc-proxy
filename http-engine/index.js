@@ -30,7 +30,7 @@ module.exports = {
 		this.globalFunc.allRequestBefore.call(this,reqObj,successCallback,errorCallback)
 		this.requestBefore && typeof this.requestBefore == 'function' && this.requestBefore.call(this,reqObj,successCallback,errorCallback)
 		let option = {
-			host: getHost.call(this),
+			host: reqObj.host || getHost.call(this),
 			port: this.port,
 			path: reqObj.path || this.option.path,
 			method: this.option.method,
