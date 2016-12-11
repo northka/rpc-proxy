@@ -1,4 +1,4 @@
-var BufferHelper = function () {
+let BufferHelper = function () {
   this.buffers = [];
 };
 
@@ -21,7 +21,7 @@ BufferHelper.prototype.toString = function (encoding) {
 };
 
 BufferHelper.prototype.load = function (stream, callback) {
-  var that = this;
+  let that = this;
   stream.on('data', function (trunk) {
     that.concat(trunk);
   });
