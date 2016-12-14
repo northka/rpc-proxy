@@ -42,7 +42,12 @@ module.exports = {
 			option.headers[ 'Content-Length' ] = query.length
 			option.headers[ 'Content-Type']    = 'application/x-www-form-urlencoded'
 		}else if(option.method === 'GET'){
-			option.path += '?' + query
+			if(option.path.indexOf('?') < 0){
+				option.path += '?' + query
+			}else{
+				option.path += '&' + query
+			}
+
 		}
 		requestListner && requestListner.emit('requestBegin',option)
 		let req = http.request( option, (res) => {
