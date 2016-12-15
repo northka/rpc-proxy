@@ -38,16 +38,15 @@ module.exports = {
 		},
 			self = this
 		let query = parseParams(reqObj.params)
-		if ( option.method === 'POST' ){
-			option.headers[ 'Content-Length' ] = query.length
-			option.headers[ 'Content-Type']    = 'application/x-www-form-urlencoded'
-		}else if(option.method === 'GET'){
+		if(option.method.toUpperCase() === 'GET'){
 			if(option.path.indexOf('?') < 0){
 				option.path += '?' + query
 			}else{
 				option.path += '&' + query
 			}
-
+		}else {
+			option.headers[ 'Content-Length' ] = query.length
+			option.headers[ 'Content-Type']    = 'application/x-www-form-urlencoded'
 		}
 		requestListner && requestListner.emit('requestBegin',option)
 		let req = http.request( option, (res) => {
