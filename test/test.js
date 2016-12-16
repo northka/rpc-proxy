@@ -5,13 +5,28 @@
 const rpcProxy = require('../index')
 rpcProxy.setStatus('online')
 rpcProxy.init('./test/profile')
-console.log(rpcProxy.getInterface('getItem').request({
-	params: {
-		start_date : '2016-09-17',
-		end_date : '2016-09-17',
-		status : 0
-	}
-}, console.log, console.error))
-rpcProxy.setRequestAfter(function(e,buf){
-	console.log(e,buf)
+// console.log(rpcProxy.getInterface('getItem').request({
+// 	params: {
+// 		start_date : '2016-09-17',
+// 		end_date : '2016-09-17',
+// 		status : 0
+// 	}
+// }, console.log, console.error))
+// rpcProxy.setRequestAfter(function(e,buf){
+// 	console.log(e,buf)
+// })
+let promise =rpcProxy.request('getItem', {params:{
+	start_date : '2016-09-17',
+	end_date : '2016-09-17',
+	status : 0
+}})
+promise.then(function (re) {
+	console.log(1)
+	console.log(arguments)
+},function (re) {
+	console.log(2)
+	console.log(arguments)
+}).catch(function () {
+	console.log(3)
+	console.error(arguments)
 })

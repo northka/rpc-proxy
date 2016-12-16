@@ -49,18 +49,17 @@ module.exports = {
 			option.headers[ 'Content-Type']    = 'application/x-www-form-urlencoded'
 		}
 		requestListner && requestListner.emit('requestBegin',option)
+		let timer = setTimeout( function() {
+			requestListner && requestListner.emit('requestTimeout',option)
+			errorCallback( new Error('timeout') )
+		}, reqObj.timeout || self.timeout )
 		let req = http.request( option, (res) => {
 			self.waitRequest == 'function' && self.waitRequest.call(self,reqObj,successCallback,errorCallback)
 			let bufferHelper = new BufferHelper()
-			let timer = setTimeout( function() {
-				errorCallback( new Error('timeout') )
-				requestListner && requestListner.emit('requestTimeout',option)
-			}, self.timeout )
 			res.on('data', (chunk) =>{
 				bufferHelper.concat( chunk )
 			})
 			res.on('end', () => {
-
 				let buf = bufferHelper.toBuffer()
 				requestListner && requestListner.emit('requestEnd',buf)
 				let result
