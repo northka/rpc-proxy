@@ -23,7 +23,7 @@ function parseParams ( params){
 	return queryString.stringify( params )
 }
 module.exports = {
-	request: function(reqObj, successCallback, errorCallback, requestListner) {
+	request: function(reqObj = {}, successCallback, errorCallback, requestListner) {
 		if(typeof this.shouldRequest == 'function' && this.shouldRquest.call(this,reqObj,successCallback,errorCallback)){
 			return  1
 		}
@@ -67,7 +67,7 @@ module.exports = {
 					if(option.encoding === 'raw'){
 						result = buf
 					}else{
-						if( res.headers['content-type'].indexOf('application/json') >= 0){
+						if( res.headers['content-type']&&res.headers['content-type'].indexOf('application/json') >= 0){
 							result = JSON.parse(buf.toString())
 						}else{
 							result = buf.toString()
@@ -94,21 +94,31 @@ module.exports = {
 		req.end()
 	},
 	parseReqObj: function (reqObj) {
+		if(!reqObj) return
 		if(reqObj.cookies){
 			let cookies = []
 			let cookieName = Object.keys(reqObj.cookies)
 
-			cookies.push(cookieName + '='+ reqObj.cookies[cookieName])
+			cookies.push(cookieName + '=' + reqObj.cookies[cookieName])
 			if(reqObj.headers){
 				if(reqObj.headers['cookie']){
 					cookies.push(reqObj.headers['cookie'])
-					reqObj.headers['cookie'] = cookies
+					if(this.option.headers && this.option.headers.cookie){
+						cookies.push(this.option.headers.cookie)
+					}
+					reqObj.headers['cookie'] = cookies.join(';')
 				}else{
-					reqObj.headers['cookie'] = cookies
+					if(this.option.headers && this.option.headers.cookie){
+						cookies.push(this.option.headers.cookie)
+					}
+					reqObj.headers['cookie'] = cookies.join(';')
 				}
 			}else{
+				if(this.option.headers && this.option.headers.cookie){
+					cookies.push(this.option.headers.cookie)
+				}
 				reqObj.headers = {}
-				reqObj.headers['Cookie'] = cookies
+				reqObj.headers['cookie'] = cookies.join(';')
 			}
 		}
 	}
