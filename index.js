@@ -29,9 +29,9 @@ module.exports ={
 	setRequestAfter  : modifyGlobalFunc.setRequestAfter,
 	requestListener,
 	request,
-	setEngineDefault: (engine, default) => {
+	setEngineDefault: (engine, defaults) => {
 		let engineDefault = {}
-		engineDefault.[engine+'Default'] = default
+		engineDefault[engine+'Default'] = defaults
 		processProfile({engineDefault})
 	}
 }
