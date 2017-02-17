@@ -28,7 +28,19 @@ module.exports ={
 	setRequestBefore : modifyGlobalFunc.setRequestBefore,
 	setRequestAfter  : modifyGlobalFunc.setRequestAfter,
 	requestListener,
-	request,
+	request : function (id,reqobj) {
+		if(typeof id === 'string'){
+			request(id, reqobj)
+		}else{
+			if(typeof reqobj == "object"){
+				if(reqobj.id != undefined && typeof reqobj.id == 'string'){
+					request(reqobj.id, reqobj)
+				}else{
+					throw new Error('parameter error: request need id')
+				}
+			}
+		}
+	},
 	setEngineDefault: (engine, defaults) => {
 		let engineDefault = {}
 		engineDefault[engine+'Default'] = defaults
