@@ -90,6 +90,7 @@ module.exports = {
 		option.method === 'GET' || req.write( query )
 		req.on( 'error', (e) => {
 			errorCallback(e)
+			clearTimeout(timer)
 		})
 		req.end()
 	},
