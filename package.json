@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/northka/rpc-proxy/issues"
   },
-  "homepage": "https://github.com/northka/rpc-proxy#readme"
+  "homepage": "https://github.com/northka/rpc-proxy#readme",
+  "dependencies": {
+    "ajv": "^5.0.3-beta.0"
+  }
 }
