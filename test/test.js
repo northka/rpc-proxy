@@ -16,14 +16,22 @@ const jsonServer = require('./server').httpJsonServer
 // rpcProxy.setRequestAfter(function(e,buf){
 // 	console.log(e,buf)
 // })
-
-// let promise =rpcProxy.request('getJson')
-
-// promise.then((data) => {
-// 	console.info(data)
-// }, (error) => {
-// 	console.error(error)
-// })
+describe('Processing the configuration file ',() => {
+	describe('setStatus', () => {
+		
+	})
+	describe('getInterface', () =>{
+		it('when no this interface', () => {
+			(typeof rpcProxy.getInterface('noInterface')).should.equal('undefined')
+		})
+		it('when get a interface', () => {
+			let tempInterface = rpcProxy.getInterface('getJson')
+			tempInterface.should.be.Object()
+			tempInterface.should.have.property('request')
+			tempInterface.should.have.property('parseReqObj')
+		})
+	})
+})
 describe('the interface succeed', () => {
 	jsonServer()
 	let promise = rpcProxy.request('getJson')
