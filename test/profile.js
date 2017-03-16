@@ -7,20 +7,14 @@ module.exports = {
 		dev   : '127.0.0.1'
 	},
 	engine : 'http',
-    port   : 9299,
+    port   : 9292,
 	timeout: 3000,
 	interfaces : [
 		{
-			id   : 'getItem',
+			id   : 'getJson',
 			http : {
-				path : '/admin/v1/activitys-guess/history'
+				path : '/getUserInfo'
 			}
 		}
-
-
-
-	],
-	// files : [
-	// 	'./test/profile'
-	// ]
+	]
 }

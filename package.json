@@ -4,7 +4,7 @@
   "description": "rpc层集成框架，将来补充zookeeper和日志统一处理",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require should --require should-http test/* --bail"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,12 @@
   "homepage": "https://github.com/northka/rpc-proxy#readme",
   "dependencies": {
     "ajv": "^5.0.3-beta.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "should": "^11.2.1",
+    "should-http": "^0.1.0",
+    "supertest": "^3.0.0",
+    "test-console": "^1.0.0"
   }
 }

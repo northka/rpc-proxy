@@ -3,8 +3,9 @@
  */
 
 const rpcProxy = require('../index')
-rpcProxy.setStatus('online')
+rpcProxy.setStatus('dev')
 rpcProxy.init('./test/profile')
+const jsonServer = require('./server').httpJsonServer
 // console.log(rpcProxy.getInterface('getItem').request({
 // 	params: {
 // 		start_date : '2016-09-17',
@@ -15,18 +16,25 @@ rpcProxy.init('./test/profile')
 // rpcProxy.setRequestAfter(function(e,buf){
 // 	console.log(e,buf)
 // })
-let promise =rpcProxy.request('getItem', {params:{
-	start_date : '2016-09-17',
-	end_date : '2016-09-17',
-	status : 0
-}})
-promise.then(function (re) {
-	console.log(1)
-	console.log(arguments)
-},function (re) {
-	console.log(2)
-	console.log(arguments)
-}).catch(function () {
-	console.log(3)
-	console.error(arguments)
+
+// let promise =rpcProxy.request('getJson')
+
+// promise.then((data) => {
+// 	console.info(data)
+// }, (error) => {
+// 	console.error(error)
+// })
+describe('the interface succeed', () => {
+	jsonServer()
+	let promise = rpcProxy.request('getJson')
+	it('should return a promise', () => {
+		promise.should.be.a.Promise()
+	})
+
+	it('when getting data succeed', (done) => {
+		promise.then((data) => {
+			data.should.be.Object()
+			done()
+		})
+	})
 })

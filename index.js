@@ -30,11 +30,11 @@ module.exports ={
 	requestListener,
 	request : function (id,reqobj) {
 		if(typeof id === 'string'){
-			request(id, reqobj)
+			return request(id, reqobj)
 		}else{
 			if(typeof reqobj == "object"){
 				if(reqobj.id != undefined && typeof reqobj.id == 'string'){
-					request(reqobj.id, reqobj)
+					return request(reqobj.id, reqobj)
 				}else{
 					throw new Error('parameter error: request need id')
 				}
