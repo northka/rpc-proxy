@@ -1,11 +1,9 @@
 /**
  * Created by northka.chen on 2016/11/10.
  */
-
-const rpcProxy = require('../index')
-rpcProxy.setStatus('dev')
-rpcProxy.init('./test/profile')
-const jsonServer = require('./server').httpJsonServer
+const rpcProxy       = require('../index')
+const AssertionError = require('assert').AssertionError
+const jsonServer     = require('./server').httpJsonServer
 // console.log(rpcProxy.getInterface('getItem').request({
 // 	params: {
 // 		start_date : '2016-09-17',
@@ -16,9 +14,16 @@ const jsonServer = require('./server').httpJsonServer
 // rpcProxy.setRequestAfter(function(e,buf){
 // 	console.log(e,buf)
 // })
-describe('Processing the configuration file ',() => {
+describe('processing the configuration file',() => {
+	it('with no error',() => {
+		(() => rpcProxy.init('./test/profile')).should.not.throw(AssertionError)
+	})
+	
+})
+describe('Processed the configuration file ',() => {
+	rpcProxy.init('./test/profile')
 	describe('setStatus', () => {
-		
+		rpcProxy.setStatus('dev')
 	})
 	describe('getInterface', () =>{
 		it('when no this interface', () => {
@@ -33,16 +38,18 @@ describe('Processing the configuration file ',() => {
 	})
 })
 describe('the interface succeed', () => {
-	jsonServer()
-	let promise = rpcProxy.request('getJson')
-	it('should return a promise', () => {
-		promise.should.be.a.Promise()
-	})
+	const server = jsonServer()
+	server.listen(9292, () => {
+		let promise = rpcProxy.request('getJson')
+		it('should return a promise', () => {
+			promise.should.be.a.Promise()
+		})
 
-	it('when getting data succeed', (done) => {
-		promise.then((data) => {
-			data.should.be.Object()
-			done()
+		it('when getting data succeed', (done) => {
+			promise.then((data) => {
+				data.should.be.Object()
+				done()
+			})
 		})
 	})
 })

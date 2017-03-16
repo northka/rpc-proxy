@@ -18,6 +18,5 @@ exports.httpJsonServer = function(){
 			}
 		}))
 	})
-	server.listen(9292, '127.0.0.1')
 	return server
 }
