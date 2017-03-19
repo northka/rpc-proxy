@@ -9,11 +9,35 @@ module.exports = {
 	engine : 'http',
     port   : 9292,
 	timeout: 3000,
+	httpDefault: {
+		validator: 'json'
+	},
 	interfaces : [
 		{
 			id   : 'getJson',
 			http : {
-				path : '/getUserInfo'
+				path: '/getUserInfo'
+			},
+			scheme: {
+				properties: {
+                    code: {type: 'number'},
+                    data: {
+                        type: 'object',
+                        properties: {
+                            name: {type: 'string'},
+                            sex : {type: 'number'},
+                            info: {
+                                type: 'object',
+                                properties: {
+                                    company: {type: 'array',items: {
+                                        type: 'string'
+                                    }},
+                                    salary : {type: 'string'}
+                                }
+                            }
+                        }
+                    }
+                }
 			}
 		}
 	]
