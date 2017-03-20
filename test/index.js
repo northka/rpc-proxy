@@ -25,16 +25,12 @@ describe('Processed the configuration file ',() => {
 		})
 		
 	})
-	
-	describe('setStatus', () => {
-		rpcProxy.setStatus('dev')
+	rpcProxy.setStatus('dev')
+
+	it('with no error',() => {
+		(() => rpcProxy.init('./test/profile/defaultprofile')).should.not.throw(AssertionError)
 	})
 
-	describe('processing the configuration file',() => {
-		it('with no error',() => {
-			(() => rpcProxy.init('./test/profile/defaultprofile')).should.not.throw(AssertionError)
-		})
-	})
 
 	describe('getInterface', () =>{
 		it('when no this interface', () => {
