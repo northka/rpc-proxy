@@ -16,9 +16,14 @@ const jsonServer     = require('./server').httpJsonServer
 // })
 
 describe('Processed the configuration file ',() => {
-	before((done) => {
-		const server = jsonServer()
-		server.listen(9292, () => done())
+	before(() => {
+		describe('create server',() => {
+			it('begin listenning', (done) => {
+				const server = jsonServer()
+				server.listen(9292, () => done())
+			})
+		})
+		
 	})
 	
 	describe('setStatus', () => {
@@ -42,9 +47,20 @@ describe('Processed the configuration file ',() => {
 			tempInterface.should.have.property('parseReqObj')
 		})
 
-		it('calling request should return a promise', () => {
+		it('callshould return a promise', () => {
 			let promise = rpcProxy.request('getJson')
 			promise.should.be.a.Promise()
+		})
+	})
+	after(() => {
+		let promise = rpcProxy.request('getJson')
+		describe('get data successfully', () => {
+			it('response should be an object', (done) => {
+					promise.then(data => {
+					data.should.be.a.Object()
+					done()
+				})
+			})
 		})
 	})
 })
