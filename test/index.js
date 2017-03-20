@@ -23,11 +23,7 @@ describe('create server',() => {
 
 describe('Processed the configuration file ',() => {
 	rpcProxy.setStatus('dev')
-
-	it('with no error',() => {
-		(() => rpcProxy.init('./test/profile/defaultprofile')()).should.not.throw(AssertionError)
-	})
-
+	rpcProxy.init('./test/profile/defaultprofile')
 
 	describe('getInterface', () =>{
 		it('when no this interface', () => {
@@ -48,7 +44,6 @@ describe('Processed the configuration file ',() => {
 })	
 
 describe('get data successfully', () => {
-	rpcProxy.init('./test/profile/defaultprofile')
 	let promise = rpcProxy.request('getJson')
 	it('response should be an object', (done) => {
 		promise.then(data => {
