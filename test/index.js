@@ -14,12 +14,7 @@ const jsonServer     = require('./server').httpJsonServer
 // rpcProxy.setRequestAfter(function(e,buf){
 // 	console.log(e,buf)
 // })
-describe('create server',() => {
-	it('begin listenning', (done) => {
-		const server = jsonServer()
-		server.listen(9292, () => done())
-	})
-})	
+
 
 describe('Processed the configuration file ',() => {
 	rpcProxy.setStatus('dev')
@@ -43,12 +38,20 @@ describe('Processed the configuration file ',() => {
 	})
 })	
 
-describe('get data successfully', () => {
-	let promise = rpcProxy.request('getJson')
-	it('response should be an object', (done) => {
-		promise.then(data => {
-			data.should.be.a.Object()
-			done()
+describe('create server',() => {
+	it('begin listenning', () => {
+		const server = jsonServer()
+		server.listen(9292, () => {
+			describe('get data successfully', () => {
+				let promise = rpcProxy.request('getJson')
+				it('response should be an object', (done) => {
+					promise.then(data => {
+						data.should.be.a.Object()
+						done()
+					})
+				})
+			})
 		})
 	})
-})
+})	
+
