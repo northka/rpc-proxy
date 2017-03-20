@@ -4,7 +4,7 @@
 module.exports = {
 	urls   : {
 		online: '10.10.62.103',
-		dev   : '127.0.0.1'
+		dev   : 'localhost'
 	},
 	engine : 'http',
     port   : 9292,
