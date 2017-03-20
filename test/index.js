@@ -23,7 +23,7 @@ describe('create server',() => {
 
 describe('Processed the configuration file ',() => {
 	rpcProxy.setStatus('dev')
-	rpcProxy.init('./test/profile/defaultprofile')
+	rpcProxy.init('./test/profile/defaultProfile')
 
 	describe('getInterface', () =>{
 		it('when no this interface', () => {
