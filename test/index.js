@@ -14,17 +14,23 @@ const jsonServer     = require('./server').httpJsonServer
 // rpcProxy.setRequestAfter(function(e,buf){
 // 	console.log(e,buf)
 // })
-describe('processing the configuration file',() => {
-	it('with no error',() => {
-		(() => rpcProxy.init('./test/profile')).should.not.throw(AssertionError)
+
+describe('Processed the configuration file ',() => {
+	before((done) => {
+		const server = jsonServer()
+		server.listen(9292, () => done())
 	})
 	
-})
-describe('Processed the configuration file ',() => {
-	rpcProxy.init('./test/profile')
 	describe('setStatus', () => {
 		rpcProxy.setStatus('dev')
 	})
+
+	describe('processing the configuration file',() => {
+		it('with no error',() => {
+			(() => rpcProxy.init('./test/profile/defaultprofile')).should.not.throw(AssertionError)
+		})
+	})
+
 	describe('getInterface', () =>{
 		it('when no this interface', () => {
 			(typeof rpcProxy.getInterface('noInterface')).should.equal('undefined')
@@ -35,21 +41,15 @@ describe('Processed the configuration file ',() => {
 			tempInterface.should.have.property('request')
 			tempInterface.should.have.property('parseReqObj')
 		})
-	})
-})
-describe('the interface succeed', () => {
-	const server = jsonServer()
-	server.listen(9292, () => {
-		let promise = rpcProxy.request('getJson')
-		it('should return a promise', () => {
+
+		it('calling request should return a promise', () => {
+			let promise = rpcProxy.request('getJson')
 			promise.should.be.a.Promise()
 		})
-
-		it('when getting data succeed', (done) => {
-			promise.then((data) => {
-				data.should.be.Object()
-				done()
-			})
-		})
 	})
 })
+
+
+
+
+
