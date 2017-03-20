@@ -31,10 +31,7 @@ describe('Processed the configuration file ',() => {
 			tempInterface.should.have.property('parseReqObj')
 		})
 
-		it('callshould return a promise', () => {
-			let promise = rpcProxy.request('getJson')
-			promise.should.be.a.Promise()
-		})
+		
 	})
 })	
 
@@ -44,6 +41,9 @@ describe('create server',() => {
 		server.listen(9292, () => {
 			describe('get data successfully', () => {
 				let promise = rpcProxy.request('getJson')
+				it('callshould return a promise', () => {
+					promise.should.be.a.Promise()
+				})
 				it('response should be an object', (done) => {
 					promise.then(data => {
 						data.should.be.a.Object()
