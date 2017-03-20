@@ -14,21 +14,18 @@ const jsonServer     = require('./server').httpJsonServer
 // rpcProxy.setRequestAfter(function(e,buf){
 // 	console.log(e,buf)
 // })
+describe('create server',() => {
+	it('begin listenning', (done) => {
+		const server = jsonServer()
+		server.listen(9292, () => done())
+	})
+})	
 
 describe('Processed the configuration file ',() => {
-	before(() => {
-		describe('create server',() => {
-			it('begin listenning', (done) => {
-				const server = jsonServer()
-				server.listen(9292, () => done())
-			})
-		})
-		
-	})
 	rpcProxy.setStatus('dev')
 
 	it('with no error',() => {
-		(() => rpcProxy.init('./test/profile/defaultprofile')).should.not.throw(AssertionError)
+		(() => rpcProxy.init('./test/profile/defaultprofile')()).should.not.throw(AssertionError)
 	})
 
 
@@ -48,20 +45,15 @@ describe('Processed the configuration file ',() => {
 			promise.should.be.a.Promise()
 		})
 	})
-	after(() => {
-		let promise = rpcProxy.request('getJson')
-		describe('get data successfully', () => {
-			it('response should be an object', (done) => {
-					promise.then(data => {
-					data.should.be.a.Object()
-					done()
-				})
-			})
+})	
+
+describe('get data successfully', () => {
+	rpcProxy.init('./test/profile/defaultprofile')
+	let promise = rpcProxy.request('getJson')
+	it('response should be an object', (done) => {
+		promise.then(data => {
+			data.should.be.a.Object()
+			done()
 		})
 	})
 })
-
-
-
-
-
