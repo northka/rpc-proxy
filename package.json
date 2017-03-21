@@ -4,7 +4,8 @@
   "description": "rpc层集成框架，将来补充zookeeper和日志统一处理",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require should --require should-http test/*.js --bail"
+    "test": "mocha --require should --require should-http test/*.js --bail",
+    "cov" : "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -u exports --require should ./test/index.js"
   },
   "repository": {
     "type": "git",
