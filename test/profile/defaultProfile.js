@@ -10,8 +10,9 @@ module.exports = {
     port   : 9292,
 	timeout: 3000,
 	httpDefault: {
-		validator: 'json'
+		
 	},
+	validator: 'json',
 	interfaces : [
 		{
 			id   : 'getJson',
