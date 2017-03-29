@@ -84,7 +84,13 @@ module.exports = {
 
 				typeof self.afterRequest == 'function' && self.afterRequest.call(self,null,[result, res.headers[ 'set-cookie']],reqObj,successCallback,errorCallback)
 				self.globalFunc.allRequestAfter.call(self,null,[result, res.headers[ 'set-cookie']],reqObj,successCallback,errorCallback)
-				successCallback(result, res.headers[ 'set-cookie'])
+				if(res.headers['set-cookie']){
+					result = {
+						cookie: res.headers['set-cookie'],
+						result
+					}
+				}
+				successCallback(result)
 			})
 		})
 		option.method === 'GET' || req.write( query )
@@ -95,7 +101,6 @@ module.exports = {
 		req.end()
 	},
 	parseReqObj: function (reqObj) {
-		if(!reqObj) return
 		if(reqObj.cookies){
 			let cookies = []
 			let cookieName = Object.keys(reqObj.cookies)
