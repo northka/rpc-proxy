@@ -2,7 +2,6 @@
  * Created by northka.chen on 2016/11/10.
  */
 const rpcProxy       = require('../index')
-const AssertionError = require('assert').AssertionError
 const jsonServer     = require('./server').httpJsonServer
 // console.log(rpcProxy.getInterface('getItem').request({
 // 	params: {
