@@ -9,7 +9,7 @@ promise.then(data => {
 	console.log(data)
 })
 const server = jsonServer()
-server.listen(9292, () => {
+server.listen(9293, () => {
 	let httpPromise= rpcProxy.request('getDataFromServer')
 	httpPromise.then(data => {
 		console.log(data)

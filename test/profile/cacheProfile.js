@@ -5,7 +5,8 @@ module.exports = {
 		{
 			id: 'getDataFromCache',
 			cache: {
-				type: 'get'
+				type: 'get',
+                beforeCacheId: 'getDataFromServer'
 			}
 		},
 		{
@@ -15,7 +16,7 @@ module.exports = {
 			}
 		},{
 			id:'getDataFromServer',
-			port : 9292,
+			port : 9293,
 			http : {
 				path: '/getUserInfo'
 			},
