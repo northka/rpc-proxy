@@ -67,7 +67,7 @@ module.exports = {
 					if(option.encoding === 'raw'){
 						result = buf
 					}else{
-						if( res.headers['content-type']&&res.headers['content-type'].indexOf('application/json') >= 0){
+						if( res.headers['content-type']&&res.headers['content-type'].indexOf('json') >= 0){
 							result = JSON.parse(buf.toString())
 						}else{
 							result = buf.toString()
