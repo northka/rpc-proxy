@@ -16,7 +16,7 @@ module.exports ={
 
 			let profile = require(fileName)
 			processProfile(profile)
-		}else if(arg !== null && typeof arg === 'object'){
+		}else if(fileName !== null && typeof fileName === 'object'){
 			processProfile(fileName)
 		}
 	},
