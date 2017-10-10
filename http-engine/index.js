@@ -1,6 +1,7 @@
 const queryString  = require('querystring')
 const http         = require('http')
 const EventEmitter = require('events')
+const logger       = plug('logger')
 
 const BufferHelper = require('./bufferHelper')
 
@@ -24,10 +25,10 @@ function parseParams ( params){
 }
 module.exports = {
 	request: function(reqObj = {}, successCallback, errorCallback, requestListner) {
+		console.log(reqObj)
 		if(typeof this.shouldRequest == 'function' && this.shouldRquest.call(this,reqObj,successCallback,errorCallback)){
 			return  1
 		}
-		this.globalFunc.allRequestBefore.call(this,reqObj,successCallback,errorCallback)
 		this.requestBefore && typeof this.requestBefore == 'function' && this.requestBefore.call(this,reqObj,successCallback,errorCallback)
 		let option = {
 			host: reqObj.host || getHost.call(this),
@@ -38,6 +39,7 @@ module.exports = {
 		},
 			self = this
 		let query = parseParams(reqObj.params)
+		logger.info(option)
 		if(option.method.toUpperCase() === 'GET'){
 			if(option.path.indexOf('?') < 0){
 				option.path += '?' + query
@@ -50,6 +52,7 @@ module.exports = {
 		}
 		requestListner && requestListner.emit('requestBegin',option)
 		let timer = setTimeout( function() {
+			logger.info(reqObj);
 			requestListner && requestListner.emit('requestTimeout',option)
 			errorCallback( new Error('timeout') )
 		}, reqObj.timeout || self.timeout )
@@ -76,20 +79,19 @@ module.exports = {
 				}catch (e){
 					clearTimeout(timer)
 					typeof self.afterRequest == 'function' && self.afterRequest.call(self,e,buf,reqObj,successCallback,errorCallback)
-					self.globalFunc.allRequestAfter.call(self,e,buf,reqObj,successCallback,errorCallback)
 					errorCallback(e)
 					return
 				}
 				clearTimeout(timer)
 
 				typeof self.afterRequest == 'function' && self.afterRequest.call(self,null,[result, res.headers[ 'set-cookie']],reqObj,successCallback,errorCallback)
-				self.globalFunc.allRequestAfter.call(self,null,[result, res.headers[ 'set-cookie']],reqObj,successCallback,errorCallback)
 				if(res.headers['set-cookie']){
 					result = {
 						cookie: res.headers['set-cookie'],
 						result
 					}
 				}
+				logger.info(result)
 				successCallback(result)
 			})
 		})
