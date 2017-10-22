@@ -1,7 +1,6 @@
 const queryString  = require('querystring')
 const http         = require('http')
 const EventEmitter = require('events')
-const logger       = plug('logger')
 
 const BufferHelper = require('./bufferHelper')
 
@@ -25,7 +24,6 @@ function parseParams ( params){
 }
 module.exports = {
 	request: function(reqObj = {}, successCallback, errorCallback, requestListner) {
-		console.log(reqObj)
 		if(typeof this.shouldRequest == 'function' && this.shouldRquest.call(this,reqObj,successCallback,errorCallback)){
 			return  1
 		}
@@ -39,7 +37,6 @@ module.exports = {
 		},
 			self = this
 		let query = parseParams(reqObj.params)
-		logger.info(option)
 		if(option.method.toUpperCase() === 'GET'){
 			if(option.path.indexOf('?') < 0){
 				option.path += '?' + query
@@ -52,7 +49,6 @@ module.exports = {
 		}
 		requestListner && requestListner.emit('requestBegin',option)
 		let timer = setTimeout( function() {
-			logger.info(reqObj);
 			requestListner && requestListner.emit('requestTimeout',option)
 			errorCallback( new Error('timeout') )
 		}, reqObj.timeout || self.timeout )
@@ -91,7 +87,6 @@ module.exports = {
 						result
 					}
 				}
-				logger.info(result)
 				successCallback(result)
 			})
 		})
