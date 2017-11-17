@@ -1,35 +1,62 @@
 {
-  "name": "rpc-proxy",
-  "version": "0.0.28",
-  "description": "rpc层集成框架，将来补充zookeeper和日志统一处理",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha --require should --require should-http test/*.js --bail",
-    "cov": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -u exports --require should ./test/index.js"
+  "_from": "rpc-proxy",
+  "_id": "rpc-proxy@0.0.27",
+  "_inBundle": false,
+  "_integrity": "sha1-mf0QBeGXDeek8GakuqZ/3F7R7cM=",
+  "_location": "/rpc-proxy",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "rpc-proxy",
+    "name": "rpc-proxy",
+    "escapedName": "rpc-proxy",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/northka/rpc-proxy.git"
-  },
-  "keywords": [
-    "rpc",
-    "soa"
+  "_requiredBy": [
+    "#USER",
+    "/"
   ],
-  "author": "northka.chen",
-  "license": "ISC",
+  "_resolved": "http://r.tnpm.oa.com/rpc-proxy/download/rpc-proxy-0.0.27.tgz",
+  "_shasum": "99fd1005e1970de7a4f066a4baa67fdc5ed1edc3",
+  "_spec": "rpc-proxy",
+  "_where": "D:\\project1\\hudong.qq.com\\node_modules\\hudong.qq.com",
+  "author": {
+    "name": "northka.chen"
+  },
   "bugs": {
     "url": "https://github.com/northka/rpc-proxy/issues"
   },
-  "homepage": "https://github.com/northka/rpc-proxy#readme",
+  "bundleDependencies": false,
   "dependencies": {
     "ajv": "^5.0.3-beta.0"
   },
+  "deprecated": false,
+  "description": "rpc层集成框架，将来补充zookeeper和日志统一处理",
   "devDependencies": {
-    "cache-engine": "^1.0.1",
     "mocha": "^3.2.0",
     "should": "^11.2.1",
     "should-http": "^0.1.0",
     "supertest": "^3.0.0",
     "test-console": "^1.0.0"
-  }
+  },
+  "homepage": "https://github.com/northka/rpc-proxy#readme",
+  "keywords": [
+    "rpc",
+    "soa"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "rpc-proxy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/northka/rpc-proxy.git"
+  },
+  "scripts": {
+    "cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -u exports --require should ./test/index.js",
+    "test": "mocha --require should --require should-http test/*.js --bail"
+  },
+  "version": "1.0.1"
 }

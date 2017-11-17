@@ -1,36 +1,19 @@
 const path = require('path')
 
-const processProfile = require('./lib/processProfile')
-const interfaceCache = require('./lib/interfaceCache')
-const engines        = require('./lib/engines')
-const request        = require('./lib/request')
-const modifyGlobalFunc     = require('./lib/modifyGlobalFunc')
-const requestListener  = require('./lib/requestListener')
+const processProfile		= require('./lib/processProfile')
+const {getInterface}		= require('./lib/interfaceCache')
+const {addEngine}       	= require('./lib/engines')
+const request       		= require('./lib/request')
+const {setRequestBefore, setRequestAfter}     = require('./lib/modifyGlobalFunc')
+const init          		= require('./lib/init')
 
 module.exports ={
-	init         : (fileName) =>{
-		if(typeof fileName ==='string'){
-			fileName = path.isAbsolute(fileName)
-				? fileName
-				: path.resolve(process.cwd(), fileName)
-
-			let profile = require(fileName)
-			processProfile(profile)
-		}else if(fileName !== null && typeof fileName === 'object'){
-			processProfile(fileName)
-		}
-	},
-	getInterface : (id) => {
-		return interfaceCache.getInterface(id)
-	},
-	addEngine    : engines.addEngine,
-	setStatus    : (status) => {
-		processProfile({status})
-	},
-	setRequestBefore : modifyGlobalFunc.setRequestBefore,
-	setRequestAfter  : modifyGlobalFunc.setRequestAfter,
-	requestListener,
-	request : function (id,reqobj) {
+	init,
+	getInterface ,
+	addEngine,
+	setRequestBefore,
+	setRequestAfter,
+	request : function (id, reqobj) {
 		if(typeof id === 'string'){
 			return request(id, reqobj)
 		}else{
@@ -47,5 +30,11 @@ module.exports ={
 		let engineDefault = {}
 		engineDefault[engine+'Default'] = defaults
 		processProfile({engineDefault})
+	},
+    setStatus    : (status) => {
+        processProfile({status})
+    },
+	setEgine: (engine)=>{
+		processProfile({engine})
 	}
 }

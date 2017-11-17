@@ -27,7 +27,6 @@ module.exports = {
 		if(typeof this.shouldRequest == 'function' && this.shouldRquest.call(this,reqObj,successCallback,errorCallback)){
 			return  1
 		}
-		this.globalFunc.allRequestBefore.call(this,reqObj,successCallback,errorCallback)
 		this.requestBefore && typeof this.requestBefore == 'function' && this.requestBefore.call(this,reqObj,successCallback,errorCallback)
 		let option = {
 			host: reqObj.host || getHost.call(this),
@@ -76,14 +75,12 @@ module.exports = {
 				}catch (e){
 					clearTimeout(timer)
 					typeof self.afterRequest == 'function' && self.afterRequest.call(self,e,buf,reqObj,successCallback,errorCallback)
-					self.globalFunc.allRequestAfter.call(self,e,buf,reqObj,successCallback,errorCallback)
 					errorCallback(e)
 					return
 				}
 				clearTimeout(timer)
 
 				typeof self.afterRequest == 'function' && self.afterRequest.call(self,null,[result, res.headers[ 'set-cookie']],reqObj,successCallback,errorCallback)
-				self.globalFunc.allRequestAfter.call(self,null,[result, res.headers[ 'set-cookie']],reqObj,successCallback,errorCallback)
 				if(res.headers['set-cookie']){
 					result = {
 						cookie: res.headers['set-cookie'],
