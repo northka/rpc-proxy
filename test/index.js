@@ -4,16 +4,6 @@
 const rpcProxy       = require('../index')
 const AssertionError = require('assert').AssertionError
 const jsonServer     = require('./server').httpJsonServer
-// console.log(rpcProxy.getInterface('getItem').request({
-// 	params: {
-// 		start_date : '2016-09-17',
-// 		end_date : '2016-09-17',
-// 		status : 0
-// 	}
-// }, console.log, console.error))
-// rpcProxy.setRequestAfter(function(e,buf){
-// 	console.log(e,buf)
-// })
 
 
 describe('Processed the configuration file ',() => {
