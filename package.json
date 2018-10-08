@@ -32,7 +32,8 @@
   "bundleDependencies": false,
   "dependencies": {
     "ajv": "^5.0.3-beta.0",
-    "cache-engine": "^1.0.1"
+    "cache-engine": "^1.0.1",
+    "mockjs": "^1.0.1-beta3"
   },
   "deprecated": false,
   "description": "rpc层集成框架，将来补充zookeeper和日志统一处理",
